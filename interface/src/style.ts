@@ -25,6 +25,7 @@ export const fonts = {
 export const GlobalStyle = createGlobalStyle`
   :root {
     --primary-color: #ff7f2a;
+    --dark-primary-color: #9d3f00;
     --secondary-color: #545454;
     --background-color: #fff;
     --foreground-color: #000;

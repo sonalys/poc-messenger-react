@@ -1,36 +1,50 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   TitleLabel, TextInput, Container, Card, Logo, LoginError, LoginButton
 } from './styles.js';
 
 const Login = ({
   isLoggedIn, performLogin, loginError,
-  username: cachedUsername, getUserName, history, pendingResponse,
+  username, getUserName, history, pendingResponse,
 }) => {
-  const [ username, setUsername ] = useState("");
-  const [ password, setPassword ] = useState("");
+  if (isLoggedIn) history.push('/messages');
+
+  const [ usernameBuffer, setUsername ] = useState("");
+  const [ passwordBuffer, setPassword ] = useState("");
 
   const handleLoginInput = ({ target: { value }}) => setUsername(value);
   const handlePasswordInput = ({ target: { value }}) => setPassword(value);
-  const handleLoginButton = () => performLogin({username, password});
+  const doLogin = () => performLogin(usernameBuffer, passwordBuffer);
+  const handlerPasswordKeyDown = ({ code }) => {
+    if (code === "Enter") doLogin();
+  };
 
-  useState(getUserName, []);
-  useState(() => setUsername(cachedUsername), [cachedUsername]);
-
-  if (isLoggedIn) {
-    history.push('/messages');
-    return <span />;
-  }
+  useEffect(() => { getUserName() }, []);
+  useEffect(() => username !== null && setUsername(username), [username]);
 
   return (
     <Container>
       <Logo src="imgs/logo.svg" />
       <Card>
         <TitleLabel className="title" >LOGIN</TitleLabel>
-        <TextInput onChange={handleLoginInput} className="username" label="Username:" id="login-username" value={username} />
-        <TextInput onChange={handlePasswordInput} className="password" label="Password:" id="login-password" value={password} type="password" />
-        <LoginError className="error" show={loginError !== null}>{loginError}</LoginError>
-        <LoginButton disabled={pendingResponse} type="submit" onClick={handleLoginButton}>Login</LoginButton>
+        <TextInput
+          id="login-username"
+          label="Username:"
+          className="username"
+          value={usernameBuffer}
+          onChange={handleLoginInput}
+        />
+        <TextInput
+          id="login-password"
+          label="Password:"
+          className="password"
+          type="password"
+          value={passwordBuffer}
+          onChange={handlePasswordInput}
+          onKeyDown={handlerPasswordKeyDown}
+        />
+        <LoginError className="error" show={!!loginError}>{loginError}</LoginError>
+        <LoginButton disabled={pendingResponse} type="submit" onClick={doLogin}>Login</LoginButton>
       </Card>
     </Container>
   );

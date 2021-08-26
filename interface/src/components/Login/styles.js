@@ -1,9 +1,15 @@
 import styled, { keyframes } from 'styled-components';
-import { text, flex, spacing, px } from 'style';
+import { text, flex, spacing, px, onMobile } from 'style';
 import { bounceInDown, fadeIn } from 'react-animations';
+import { SubmitButton } from 'components/Atoms/SubmitButton.jsx';
 
 const cardAnimation = keyframes`${bounceInDown}`;
 const logoAnimation = keyframes`${fadeIn}`;
+
+export const LoginButton = styled(SubmitButton)`
+  width: 70px;
+  height: 34px;
+`;
 
 export const Container = styled.div`
   background-color: #EEE;
@@ -17,6 +23,10 @@ export const Container = styled.div`
   width: 100vw;
   height: 100vh;
   ${flex({ align: 'center', justify: 'center', direction: 'column' })}
+
+  ${onMobile`
+    padding: 20px;
+  `}
 `;
 
 export const Card = styled.div`
@@ -27,6 +37,12 @@ export const Card = styled.div`
   animation: 400ms ${cardAnimation};
   
   ${flex({ direction: "column", align: "center", justify: "center" })}
+
+  ${onMobile`
+    width: 100vw;
+    height: 100vh;
+    border: 0;
+  `}
 
   .title {
     margin-bottom: 24px;
@@ -56,10 +72,10 @@ const InputForm = styled.div`
   ${flex({direction: "column"})}
 `;
 
-export const TextInput = ({ label, id, className, type = "text", }) => (
+export const TextInput = ({ label, id, className, onKeyDown, onChange, type = "text", value = "" }) => (
 <InputForm className={className}>
   <InputLabel>{label}</InputLabel>
-  <TextField id={id} type={type} />
+  <TextField id={id} type={type} onChange={onChange} onKeyDown={onKeyDown} value={value} />
 </InputForm>);
 
 const TextField = styled.input`
@@ -79,7 +95,8 @@ export const InputLabel = styled.a`
 `;
 
 export const Logo = styled.img`
-  width: 250px;
+  width: 90%;
+  max-width: 250px;
   margin-bottom: ${px(spacing.normal)};
   animation: 800ms ${logoAnimation};
 `;
@@ -88,19 +105,4 @@ export const LoginError = styled.div`
   color: var(--error-color);
   display: ${({ show }) => (show ? 'block' : 'none')};
   ${text({ color: "red", size: "13px", family: "normal" })}
-`;
-
-export const LoginButton = styled.button`
-  width: 100px;
-  height: 35px;
-  border-radius: 4px;
-  background-color: var(--primary-color);
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16);
-  border: 0;
-
-  &:disabled {
-    background-color: #cecece;
-  }
-
-  ${text({ color: "var(--background-color)", family: "normal", size: "13px", weight: "bold" })}
 `;

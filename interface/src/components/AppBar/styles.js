@@ -5,33 +5,19 @@ import {
 
 export const Container = styled.div`
   position: relative;
-  ${onMobile`
-    height: 60px;
-  `}
-  ${onDesktop`
-    height: 80px;
-  `}
-`;
 
-export const Inner = styled.div`
-  box-sizing: border-box;
-  position: fixed;
-  top: 0;
-  left: 0;
-  ${onMobile`
-    height: 60px;
-  `}
-  ${onDesktop`
-    height: 80px;
-  `}
-  width: 100vw;
   background-color: #666;
-  padding-left: ${px(spacing.normal)}
-  padding-right: ${px(spacing.normal)}
-  ${flex({ align: 'center', justify: 'space-between' })}
-
+  padding: 0 ${px(spacing.normal)};
+  ${flex({ direction: 'row', align: 'center', justify: 'space-between' })}
   box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.5);
   color: white;
+
+  ${onMobile`
+    height: 60px;
+  `}
+  ${onDesktop`
+    height: 80px;
+  `}
 `;
 
 export const Left = styled.div`
@@ -57,7 +43,7 @@ export const Logo = styled.div`
   background-position: center;
   background-image: url(/imgs/logo_header.svg);
   background-size: cover;
-  width: 52px;
+  width: 53px;
   height: 45px;
 `;
 

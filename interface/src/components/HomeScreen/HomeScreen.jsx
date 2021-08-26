@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import {
   Container,
@@ -6,10 +6,9 @@ import {
   TextAreaContainer,
   Chat,
   ChatMessageContainer,
-  MessageSender,
   MessageText,
-  SendButton,
   TextInput,
+  SendButton
 } from './styles.js';
 
 const HomeScreen = ({
@@ -22,7 +21,7 @@ const HomeScreen = ({
     postMessage(username, message);
     setMessage("");
   };
-  const keyDownHandler = ({ code }) => {
+  const handlerInputKeyDown = ({ code }) => {
     if (code === "Enter") sendMessage();
   };
 
@@ -35,28 +34,29 @@ const HomeScreen = ({
     <Container>
       <MessageCard>
         <Chat>
-          <div>
+          <MessageText>
             You are logged in as
-            {username}
-          </div>
+            {' '}
+            <b>{username}</b>
+          </MessageText>
           {messages.map((msg, index) => (
             <ChatMessageContainer key={`message-${index}`}>
-              <MessageSender>
-                {msg.sender}
-              </MessageSender>
               <MessageText>
+                <b>{msg.sender}</b>
+                {' '}
                 {msg.message}
               </MessageText>
             </ChatMessageContainer>
           ))}
         </Chat>
         <TextAreaContainer>
-          <TextInput id="message-field"
-                     type="text"
-                     value={message}
-                     placeholder="Write your message here"
-                     onChange={inputHandler}
-                     onKeyDown={keyDownHandler}
+          <TextInput
+            id="message-field"
+            type="text"
+            value={message}
+            placeholder="Write your message here"
+            onChange={inputHandler}
+            onKeyDown={handlerInputKeyDown}
           />
           <SendButton disabled={pendingResponse || message.length === 0} onClick={sendMessage}>Send</SendButton>
         </TextAreaContainer>

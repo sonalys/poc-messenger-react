@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import {
-  Container, Inner, Logo, Title, Left, Logout,
+  Container, Logo, Title, Left, Logout,
 } from './styles.js';
 
 const AppBar = (props) => {
@@ -9,13 +9,11 @@ const AppBar = (props) => {
 
   return (
     <Container>
-      <Inner>
-        <Left>
-          <Logo />
-          <Title>Hipster Messenger</Title>
-        </Left>
-        <Logout onClick={() => performLogout()}>Logout</Logout>
-      </Inner>
+      <Left>
+        <Logo />
+        <Title>Hipster Messenger</Title>
+      </Left>
+      <Logout onClick={() => performLogout()}>Logout</Logout>
     </Container>
   );
 };

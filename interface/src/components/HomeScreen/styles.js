@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import {
   spacing, onMobile, onDesktop, flex, text,
 } from 'style';
+import { SubmitButton } from 'components/Atoms/SubmitButton.jsx';
 
 export const Container = styled.div`
   height: 100%;
@@ -53,7 +54,6 @@ export const TextAreaContainer = styled.div`
   display: flex;
   
   ${onMobile`
-    margin-top: ${spacing.normal / 2}px;
     padding-top: ${spacing.normal / 2}px;
   `}
   ${onDesktop`
@@ -70,13 +70,8 @@ export const ChatMessageContainer = styled.div`
   ${flex({})}
 `;
 
-export const MessageSender = styled.div`
-  font-weight: bold;
-  padding-right: 8px;
-
-`;
-
 export const MessageText = styled.div`
+  ${text({ color: "#000", family: "normal", size: "16px" })}
 `;
 
 export const TextInput = styled.input`
@@ -88,17 +83,7 @@ export const TextInput = styled.input`
   ${text({ color: "#707070", family: "normal", size: "13px" })}
 `;
 
-export const SendButton = styled.button`
+export const SendButton = styled(SubmitButton)`
   width: 70px;
   height: 24px;
-  border-radius: 4px;
-  background-color: var(--primary-color);
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16);
-  border: 0;
-
-  &:disabled {
-    background-color: #cecece;
-  }
-
-  ${text({ color: "var(--background-color)", family: "normal", size: "13px", weight: "bold" })}
 `;

@@ -40,7 +40,13 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export const flex = ({ direction, align, justify }) => (css`
+interface flexProps {
+  direction?: 'column' | 'row';
+  align?: 'start' | 'center' | 'end';
+  justify?: 'start' | 'center' | 'end';
+}
+
+export const flex = ({ direction, align, justify }: flexProps) => (css`
   display: flex !important;
   box-sizing: border-box !important;
   ${direction && (direction === 'row' ? 'flex-direction: row !important;' : 'flex-direction: column !important;')}
@@ -48,9 +54,16 @@ export const flex = ({ direction, align, justify }) => (css`
   ${justify && `justify-content: ${justify} !important;`}
 `);
 
+interface textProps {
+  color?: string;
+  size?: string;
+  weight?: "bold" | "normal";
+  family?: "normal" | "special";
+}
+
 export const text = ({
   color, size, weight, family,
-}) => (`
+}: textProps) => (`
   color: ${color || '#444'};
   ${size && `font-size: ${size};` || ''}
   ${weight && `font-weight: ${weight};` || ''}

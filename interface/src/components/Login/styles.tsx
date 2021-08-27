@@ -12,7 +12,7 @@ export const LoginButton = styled(SubmitButton)`
 `;
 
 export const Container = styled.div`
-  background-color: #EEE;
+  background-color: #eee;
   background-repeat: no-repeat;
   background-position: center;
   background-image: url(/imgs/login_bg.svg);
@@ -35,8 +35,8 @@ export const Card = styled.div`
   border: 3px solid var(--primary-color);
   border-radius: 8px;
   animation: 400ms ${cardAnimation};
-  
-  ${flex({ direction: "column", align: "center", justify: "center" })}
+
+  ${flex({ direction: 'column', align: 'center', justify: 'center' })}
 
   ${onMobile`
     width: 100vw;
@@ -65,25 +65,19 @@ export const TitleLabel = styled.a`
   user-select: none;
   margin-bottom: 7px;
   justify-self: center;
-  ${text({ color: "#545454", size: "16px", family: "normal", weight: "bold" })}
+  ${text({ color: '#545454', size: '16px', family: 'normal', weight: 'bold' })}
 `;
 
-const InputForm = styled.div`
-  ${flex({direction: "column"})}
+export const InputForm = styled.div`
+  ${flex({ direction: 'column' })}
 `;
 
-export const TextInput = ({ label, id, className, onKeyDown, onChange, type = "text", value = "" }) => (
-<InputForm className={className}>
-  <InputLabel>{label}</InputLabel>
-  <TextField id={id} type={type} onChange={onChange} onKeyDown={onKeyDown} value={value} />
-</InputForm>);
-
-const TextField = styled.input`
+export const TextField = styled.input`
   height: 24px;
   width: 146px;
   border-radius: 4px;
   background-color: var(--background-color);
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   border: 0;
   outline: 0;
 `;
@@ -91,7 +85,7 @@ const TextField = styled.input`
 export const InputLabel = styled.a`
   user-select: none;
   margin-bottom: 7px;
-  ${text({ color: "var(--secondary-color)", size: "13px", family: "normal" })}
+  ${text({ color: 'var(--secondary-color)', size: '13px', family: 'normal' })}
 `;
 
 export const Logo = styled.img`
@@ -104,5 +98,5 @@ export const Logo = styled.img`
 export const LoginError = styled.div`
   color: var(--error-color);
   display: ${({ show }) => (show ? 'block' : 'none')};
-  ${text({ color: "red", size: "13px", family: "normal" })}
+  ${text({ color: 'red', size: '13px', family: 'normal' })}
 `;

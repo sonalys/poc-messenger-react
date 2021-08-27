@@ -1,32 +1,46 @@
 import { useState, useEffect } from 'react';
 import {
-  TitleLabel, TextInput, Container, Card, Logo, LoginError, LoginButton
-} from './styles.js';
+  TitleLabel,
+  Container,
+  Card,
+  Logo,
+  LoginError,
+  LoginButton,
+} from './styles';
+
+import { TextInput } from './TextInput';
 
 const Login = ({
-  isLoggedIn, performLogin, loginError,
-  username, getUserName, history, pendingResponse,
+  isLoggedIn,
+  performLogin,
+  loginError,
+  username,
+  getUserName,
+  history,
+  pendingResponse,
 }) => {
   if (isLoggedIn) history.push('/messages');
 
-  const [ usernameBuffer, setUsername ] = useState("");
-  const [ passwordBuffer, setPassword ] = useState("");
+  const [usernameBuffer, setUsername] = useState('');
+  const [passwordBuffer, setPassword] = useState('');
 
-  const handleLoginInput = ({ target: { value }}) => setUsername(value);
-  const handlePasswordInput = ({ target: { value }}) => setPassword(value);
+  const handleLoginInput = ({ target: { value } }) => setUsername(value);
+  const handlePasswordInput = ({ target: { value } }) => setPassword(value);
   const doLogin = () => performLogin(usernameBuffer, passwordBuffer);
   const handlerPasswordKeyDown = ({ code }) => {
-    if (code === "Enter") doLogin();
+    if (code === 'Enter') doLogin();
   };
 
-  useEffect(() => { getUserName() }, []);
+  useEffect(() => {
+    getUserName();
+  }, []);
   useEffect(() => username !== null && setUsername(username), [username]);
 
   return (
     <Container>
       <Logo src="imgs/logo.svg" />
       <Card>
-        <TitleLabel className="title" >LOGIN</TitleLabel>
+        <TitleLabel className="title">LOGIN</TitleLabel>
         <TextInput
           id="login-username"
           label="Username:"
@@ -43,15 +57,15 @@ const Login = ({
           onChange={handlePasswordInput}
           onKeyDown={handlerPasswordKeyDown}
         />
-        <LoginError className="error" show={!!loginError}>{loginError}</LoginError>
-        <LoginButton disabled={pendingResponse} type="submit" onClick={doLogin}>Login</LoginButton>
+        <LoginError className="error" show={!!loginError}>
+          {loginError}
+        </LoginError>
+        <LoginButton disabled={pendingResponse} type="submit" onClick={doLogin}>
+          Login
+        </LoginButton>
       </Card>
     </Container>
   );
 };
-
-Login.propTypes = {};
-
-Login.defaultProps = {};
 
 export default Login;

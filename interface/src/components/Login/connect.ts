@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { performLogin, getUserName } from 'state_management/actions';
-import Component from './Login.jsx';
+import Component from './Login.tsx';
 
 const stateToProps = (state) => ({
   isLoggedIn: state.reducer.isLoggedIn,

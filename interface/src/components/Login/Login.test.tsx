@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { cleanup, render } from '@testing-library/react';
-import Enzyme, { mount, shallow } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
 import Login from './Login.tsx';
 
 import Adapter from 'enzyme-adapter-react-16';
@@ -59,20 +59,29 @@ describe('should set states', () => {
   });
 
   test('should update username when typing', async () => {
-    const getUserName = jest.fn();
-    const props = {
-      getUserName,
-      username: '',
-    };
+    const setUsernameMock = jest.fn();
 
-    const mockFn = jest.fn();
+    jest.spyOn(React, 'useState').mockReturnValueOnce(['', setUsernameMock]);
 
-    jest.spyOn(React, 'useState').mockReturnValueOnce(['', mockFn]);
-
-    const wrapper = mount(<Login {...props} />);
-    const input = wrapper.find('input');
+    const wrapper = mount(<Login getUserName={jest.fn()} />);
+    const input = wrapper.find('#login-username');
 
     input.first().simulate('change', { target: { value: '123' } });
-    expect(mockFn).toBeCalledWith('123');
+    expect(setUsernameMock).toBeCalledWith('123');
+  });
+
+  test('should update password when typing', async () => {
+    const setUsernameMock = jest.fn();
+
+    jest
+      .spyOn(React, 'useState')
+      .mockReturnValueOnce(['', jest.fn()])
+      .mockReturnValueOnce(['', setUsernameMock]);
+
+    const wrapper = mount(<Login getUserName={jest.fn()} />);
+    const input = wrapper.find('#login-password');
+
+    input.first().simulate('change', { target: { value: '123' } });
+    expect(setUsernameMock).toBeCalledWith('123');
   });
 });

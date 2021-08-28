@@ -52,14 +52,14 @@ const Login = ({
       <Card>
         <TitleLabel className="title">LOGIN</TitleLabel>
         <TextInput
-          id="login-username"
+          fieldId="login-username"
           label="Username:"
           className="username"
           value={usernameBuffer}
           onChange={handleLoginInput}
         />
         <TextInput
-          id="login-password"
+          fieldId="login-password"
           label="Password:"
           className="password"
           type="password"

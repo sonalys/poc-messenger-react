@@ -5,7 +5,7 @@ export type EventHandler = (key: any) => void;
 
 export interface TextInputProps {
   label: string;
-  id?: string;
+  fieldId?: string;
   className?: string;
   type?: 'text' | 'password';
   value?: string;
@@ -15,7 +15,7 @@ export interface TextInputProps {
 
 export const TextInput = ({
   label,
-  id,
+  fieldId,
   className,
   onKeyDown,
   onChange,
@@ -25,7 +25,7 @@ export const TextInput = ({
   <InputForm className={className}>
     <InputLabel>{label}</InputLabel>
     <TextField
-      id={id}
+      id={fieldId}
       type={type}
       onChange={onChange}
       onKeyDown={onKeyDown}

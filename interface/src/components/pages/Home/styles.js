@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import {
   spacing, onMobile, onDesktop, flex, text,
 } from 'style';
-import { SubmitButton } from 'components/Atoms/SubmitButton.jsx';
+import { SubmitButton } from 'components/atoms/SubmitButton.jsx';
 
 export const Container = styled.div`
   height: 100%;

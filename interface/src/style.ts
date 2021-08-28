@@ -18,8 +18,8 @@ export const onDesktop = (...args) => css`
 `;
 
 export const fonts = {
-  normal: "'Roboto', sans-serif",
-  special: "'Rubik Mono One', sans-serif",
+  normal: '"Roboto", sans-serif',
+  special: '"Rubik Mono One", sans-serif',
 };
 
 export const GlobalStyle = createGlobalStyle`
@@ -57,8 +57,8 @@ export const flex = ({ direction, align, justify }: flexProps) => (css`
 interface textProps {
   color?: string;
   size?: string;
-  weight?: "bold" | "normal";
-  family?: "normal" | "special";
+  weight?: 'bold' | 'normal';
+  family?: 'normal' | 'special';
 }
 
 export const text = ({

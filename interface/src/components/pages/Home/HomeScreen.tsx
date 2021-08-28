@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 
 import {
   Container,
@@ -8,21 +8,38 @@ import {
   ChatMessageContainer,
   MessageText,
   TextInput,
-  SendButton
-} from './styles.js';
+  SendButton,
+} from './styles';
+
+interface Message {
+  sender: string;
+  message: string;
+}
+
+interface HomeProps {
+  username?: string;
+  messages: Message[];
+  pendingResponse: boolean;
+  getMessages: () => void;
+  postMessage: (username: string, message: string) => void;
+}
 
 const HomeScreen = ({
-    username, messages, pendingResponse, getMessages, postMessage,
-  }) => {
-  const [ message, setMessage ] = useState("");
+  username,
+  messages,
+  pendingResponse,
+  getMessages,
+  postMessage,
+}: HomeProps): ReactElement => {
+  const [message, setMessage] = useState('');
 
-  const inputHandler = ({ target: { value }}) => setMessage(value);
+  const inputHandler = ({ target: { value } }) => setMessage(value);
   const sendMessage = () => {
     postMessage(username, message);
-    setMessage("");
+    setMessage('');
   };
   const handlerInputKeyDown = ({ code }) => {
-    if (code === "Enter") sendMessage();
+    if (code === 'Enter') sendMessage();
   };
 
   if (messages === null && !pendingResponse) {
@@ -35,16 +52,12 @@ const HomeScreen = ({
       <MessageCard>
         <Chat>
           <MessageText>
-            You are logged in as
-            {' '}
-            <b>{username}</b>
+            You are logged in as <b>{username}</b>
           </MessageText>
           {messages.map((msg, index) => (
             <ChatMessageContainer key={`message-${index}`}>
               <MessageText>
-                <b>{msg.sender}</b>
-                {' '}
-                {msg.message}
+                <b>{msg.sender}</b> {msg.message}
               </MessageText>
             </ChatMessageContainer>
           ))}
@@ -58,7 +71,12 @@ const HomeScreen = ({
             onChange={inputHandler}
             onKeyDown={handlerInputKeyDown}
           />
-          <SendButton disabled={pendingResponse || message.length === 0} onClick={sendMessage}>Send</SendButton>
+          <SendButton
+            disabled={pendingResponse || message.length === 0}
+            onClick={sendMessage}
+          >
+            Send
+          </SendButton>
         </TextAreaContainer>
       </MessageCard>
     </Container>

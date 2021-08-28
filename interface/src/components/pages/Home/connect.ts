@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { getMessages, postMessage } from 'state_management/actions';
-import HomeScreen from './HomeScreen.jsx';
+import HomeScreen from './HomeScreen';
 
 const stateToProps = (state) => ({
   messages: state.reducer.messages,

@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { withRouter } from 'react-router';
-import {
-  Container, Logo, Title, Left, Logout,
-} from './styles.js';
+import { Container, Logo, Title, Left, Logout } from './styles.js';
 
-const AppBar = (props) => {
-  const { performLogout } = props;
+interface AppBarProps {
+  performLogout: () => void;
+}
 
+const AppBar = ({ performLogout }: AppBarProps): ReactElement => {
   return (
     <Container>
       <Left>

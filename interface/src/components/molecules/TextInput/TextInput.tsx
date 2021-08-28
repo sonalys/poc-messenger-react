@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
-import { InputForm, InputLabel, TextField } from './styles';
+import { InputForm } from './styles';
+import { TextField } from 'components/atoms/TextField';
+import { InputLabel } from 'components/atoms/InputLabel';
 
 export type EventHandler = (key: any) => void;
 

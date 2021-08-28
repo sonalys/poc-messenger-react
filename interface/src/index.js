@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import createStore from 'state_management/store.js';
 import App from 'components/App';
-import Login from 'components/Login';
+import Login from 'components/pages/Login';
 import { GlobalStyle } from 'style';
 
 const store = createStore();

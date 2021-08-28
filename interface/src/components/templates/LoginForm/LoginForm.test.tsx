@@ -5,7 +5,7 @@
 import React from 'react';
 import { cleanup, render } from '@testing-library/react';
 import Enzyme, { mount } from 'enzyme';
-import Login from './Login.tsx';
+import Login from './LoginForm.tsx';
 
 import Adapter from 'enzyme-adapter-react-16';
 
@@ -86,33 +86,54 @@ describe('should set states', () => {
   });
 });
 
-describe('should not login with empty password', () => {
-  const performLogin = jest.fn();
+describe('should not login with empty password', () => {});
 
-  jest.spyOn(React, 'useState').mockReturnValueOnce(['123', jest.fn()]);
+describe('should work with enter', () => {
+  test('empty user should not trigger login', () => {
+    const performLogin = jest.fn();
 
-  const wrapper = mount(
-    <Login getUserName={jest.fn()} performLogin={performLogin} />
-  );
-  const input = wrapper.find('#login-password');
+    jest
+      .spyOn(React, 'useState')
+      .mockReturnValueOnce(['user', jest.fn()])
+      .mockReturnValueOnce(['', jest.fn()]);
 
-  input.first().simulate('keyDown', { code: 'Enter' });
-  expect(performLogin.mock.calls.length).toBe(0);
-});
+    const wrapper = mount(
+      <Login getUserName={jest.fn()} performLogin={performLogin} />
+    );
+    const input = wrapper.find('#login-password');
 
-describe('should login with enter', () => {
-  const performLogin = jest.fn();
+    input.first().simulate('keyDown', { code: 'Enter' });
+    expect(performLogin.mock.calls.length).toBe(0);
+  });
 
-  jest
-    .spyOn(React, 'useState')
-    .mockReturnValueOnce(['user', jest.fn()])
-    .mockReturnValueOnce(['password', jest.fn()]);
+  test('empty password should not trigger login', () => {
+    const performLogin = jest.fn();
 
-  const wrapper = mount(
-    <Login getUserName={jest.fn()} performLogin={performLogin} />
-  );
-  const input = wrapper.find('#login-password');
+    jest.spyOn(React, 'useState').mockReturnValueOnce(['123', jest.fn()]);
 
-  input.first().simulate('keyDown', { code: 'Enter' });
-  expect(performLogin).toBeCalledWith('user', 'password');
+    const wrapper = mount(
+      <Login getUserName={jest.fn()} performLogin={performLogin} />
+    );
+    const input = wrapper.find('#login-password');
+
+    input.first().simulate('keyDown', { code: 'Enter' });
+    expect(performLogin.mock.calls.length).toBe(0);
+  });
+
+  test('filled fields should trigger login', () => {
+    const performLogin = jest.fn();
+
+    jest
+      .spyOn(React, 'useState')
+      .mockReturnValueOnce(['user', jest.fn()])
+      .mockReturnValueOnce(['password', jest.fn()]);
+
+    const wrapper = mount(
+      <Login getUserName={jest.fn()} performLogin={performLogin} />
+    );
+    const input = wrapper.find('#login-password');
+
+    input.first().simulate('keyDown', { code: 'Enter' });
+    expect(performLogin).toBeCalledWith('user', 'password');
+  });
 });

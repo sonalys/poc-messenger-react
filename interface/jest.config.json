@@ -6,9 +6,11 @@
   "preset": "ts-jest",
   "testEnvironment": "node",
   "modulePaths": [
-    "<rootDir>/src"
+    "<rootDir>/src",
+    "node_modules"
   ],
   "transform": {
+    "^.+\\.js$": "babel-jest",
     "^.+\\.[t|j]sx?$": "ts-jest"
   }
 }

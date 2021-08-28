@@ -2,13 +2,15 @@
  * @jest-environment jsdom
  */
 
+import React from 'react';
 import { cleanup, render } from '@testing-library/react';
-import Adapter from 'enzyme-adapter-react-16';
-import { shallow, configure } from 'enzyme';
-
+import Enzyme, { mount, shallow } from 'enzyme';
 import Login from './Login.tsx';
 
-configure({ adapter: new Adapter() });
+import Adapter from 'enzyme-adapter-react-16';
+
+Enzyme.configure({ adapter: new Adapter() });
+
 afterEach(cleanup);
 
 describe('should route correctly', () => {
@@ -35,18 +37,42 @@ describe('should route correctly', () => {
   });
 });
 
-describe('should load states', () => {
-  test('should get username', async () => {
+describe('should set states', () => {
+  test('should update username state', async () => {
     const getUserName = jest.fn();
-    getUserName.mockReturnValue('foo/bar');
+    const props = {
+      getUserName,
+      username: '',
+    };
 
-    const app = shallow(<Login getUserName={getUserName} />);
+    const mockFn = jest.fn();
+
+    jest.spyOn(React, 'useState').mockReturnValue(['', mockFn]);
+
+    const wrapper = mount(<Login {...props} />);
+
+    props.username = 'foo/bar';
+    wrapper.setProps(props);
+
     expect(getUserName.mock.calls.length).toBe(1);
+    expect(mockFn).toBeCalledWith('foo/bar');
+  });
 
-    app.render();
-    expect(getUserName.mock.calls.length).toBe(1);
+  test('should update username when typing', async () => {
+    const getUserName = jest.fn();
+    const props = {
+      getUserName,
+      username: '',
+    };
 
-    const input = await app.find('input');
-    expect(input.first().text).toBe('foo/bar');
+    const mockFn = jest.fn();
+
+    jest.spyOn(React, 'useState').mockReturnValueOnce(['', mockFn]);
+
+    const wrapper = mount(<Login {...props} />);
+    const input = wrapper.find('input');
+
+    input.first().simulate('change', { target: { value: '123' } });
+    expect(mockFn).toBeCalledWith('123');
   });
 });

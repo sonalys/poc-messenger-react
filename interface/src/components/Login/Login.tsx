@@ -1,4 +1,4 @@
-import { useState, useEffect, ReactElement } from 'react';
+import React, { useEffect, ReactElement } from 'react';
 import {
   TitleLabel,
   Container,
@@ -31,16 +31,20 @@ const Login = ({
 }: LoginProps): ReactElement => {
   if (isLoggedIn) history.push('/messages');
 
-  const [usernameBuffer, setUsername] = useState('');
-  const [passwordBuffer, setPassword] = useState('');
+  const [usernameBuffer, setUsername] = React.useState('');
+  const [passwordBuffer, setPassword] = React.useState('');
 
   const handleLoginInput = ({ target: { value } }) => setUsername(value);
   const handlePasswordInput = ({ target: { value } }) => setPassword(value);
   const handlerPasswordKeyDown = ({ code }) => code === 'Enter' && doLogin();
   const doLogin = () => performLogin(usernameBuffer, passwordBuffer);
 
-  useEffect(getUserName, []);
-  useEffect(() => !!username && setUsername(username), [username]);
+  useEffect(() => {
+    getUserName();
+  }, []);
+  useEffect(() => {
+    !!username && setUsername(username);
+  }, [username]);
 
   return (
     <Container>

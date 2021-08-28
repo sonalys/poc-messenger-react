@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactElement } from 'react';
 import {
   TitleLabel,
   Container,
@@ -10,6 +10,16 @@ import {
 
 import { TextInput } from './TextInput';
 
+interface LoginProps {
+  isLoggedIn: boolean;
+  performLogin: (login: string, password: string) => void;
+  loginError: string;
+  username?: string;
+  getUserName: () => void;
+  history: string[];
+  pendingResponse: boolean;
+}
+
 const Login = ({
   isLoggedIn,
   performLogin,
@@ -18,7 +28,7 @@ const Login = ({
   getUserName,
   history,
   pendingResponse,
-}) => {
+}: LoginProps): ReactElement => {
   if (isLoggedIn) history.push('/messages');
 
   const [usernameBuffer, setUsername] = useState('');
@@ -26,15 +36,11 @@ const Login = ({
 
   const handleLoginInput = ({ target: { value } }) => setUsername(value);
   const handlePasswordInput = ({ target: { value } }) => setPassword(value);
+  const handlerPasswordKeyDown = ({ code }) => code === 'Enter' && doLogin();
   const doLogin = () => performLogin(usernameBuffer, passwordBuffer);
-  const handlerPasswordKeyDown = ({ code }) => {
-    if (code === 'Enter') doLogin();
-  };
 
-  useEffect(() => {
-    getUserName();
-  }, []);
-  useEffect(() => username !== null && setUsername(username), [username]);
+  useEffect(getUserName, []);
+  useEffect(() => !!username && setUsername(username), [username]);
 
   return (
     <Container>

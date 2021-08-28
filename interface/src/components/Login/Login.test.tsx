@@ -86,8 +86,10 @@ describe('should set states', () => {
   });
 });
 
-describe('should login with enter', () => {
+describe('should not login with empty password', () => {
   const performLogin = jest.fn();
+
+  jest.spyOn(React, 'useState').mockReturnValueOnce(['123', jest.fn()]);
 
   const wrapper = mount(
     <Login getUserName={jest.fn()} performLogin={performLogin} />
@@ -95,5 +97,22 @@ describe('should login with enter', () => {
   const input = wrapper.find('#login-password');
 
   input.first().simulate('keyDown', { code: 'Enter' });
-  expect(performLogin).toBeCalled();
+  expect(performLogin.mock.calls.length).toBe(0);
+});
+
+describe('should login with enter', () => {
+  const performLogin = jest.fn();
+
+  jest
+    .spyOn(React, 'useState')
+    .mockReturnValueOnce(['user', jest.fn()])
+    .mockReturnValueOnce(['password', jest.fn()]);
+
+  const wrapper = mount(
+    <Login getUserName={jest.fn()} performLogin={performLogin} />
+  );
+  const input = wrapper.find('#login-password');
+
+  input.first().simulate('keyDown', { code: 'Enter' });
+  expect(performLogin).toBeCalledWith('user', 'password');
 });

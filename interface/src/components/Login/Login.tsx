@@ -37,7 +37,8 @@ const Login = ({
   const handleLoginInput = ({ target: { value } }) => setUsername(value);
   const handlePasswordInput = ({ target: { value } }) => setPassword(value);
   const handlerPasswordKeyDown = ({ code }) => code === 'Enter' && doLogin();
-  const doLogin = () => performLogin(usernameBuffer, passwordBuffer);
+  const doLogin = () =>
+    passwordBuffer.length > 0 && performLogin(usernameBuffer, passwordBuffer);
 
   useEffect(() => {
     getUserName();

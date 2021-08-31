@@ -1,0 +1,15 @@
+{
+  "verbose": true,
+  "watchPlugins": [
+    "jest-watch-typeahead/filename"
+  ],
+  "preset": "ts-jest",
+  "testEnvironment": "node",
+  "modulePaths": [
+    "<rootDir>/src",
+    "node_modules"
+  ],
+  "transform": {
+    "^.+\\.[t|j]sx?$": "ts-jest"
+  }
+}
